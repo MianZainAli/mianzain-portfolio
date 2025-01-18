@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block headers %}
+    <title>{{ project.title }} - Mian Zain</title>
+    <link rel="stylesheet" href="{% static 'css/project-details.css' %}">
+{% endblock headers %}
+
+{% block content %}
+    <main class="project-details">
+        <div class="project-hero">
+            <div class="container">
+                <a href="{% url 'projects' %}" class="back-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                    Back to Projects
+                </a>
+                <h1>{{ project.title }}</h1>
+                <div class="project-meta">
+                    {% if project.is_featured %}
+                        <span class="project-tag">Featured</span>
+                    {% endif %}
+                    <span class="project-date">{{ project.date_created|date:"Y" }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-content">
+            <div class="container">
+                <div class="project-grid">
+                    <div class="project-main">
+                        <div class="project-image-wrapper">
+                            <img src="{{ project.featured_image.url }}" 
+                                 alt="{{ project.title }}" 
+                                 class="project-image"
+                                 loading="lazy"
+                                 decoding="async">
+                        </div>
+                        
+                        <div class="content-wrapper">
+                            <div class="project-description">
+                                {% for section in project.description %}
+                                    {% if section.type == 'heading' %}
+                                        <h2>{{ section.content }}</h2>
+                                    {% elif section.type == 'text' %}
+                                        <p>{{ section.content }}</p>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+
+                            <div class="gallery-section">
+                                <h2>Gallery</h2>
+                                <div class="gallery-grid">
+                                    {% for gallery_image in project.gallery_images.all %}
+                                        <img src="{{ gallery_image.image.url }}" 
+                                             alt="{{ gallery_image.caption|default:project.title }}"
+                                             loading="lazy"
+                                             decoding="async">
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <aside class="project-sidebar">
+                        <div class="project-info">
+                            <h3>Technologies Used</h3>
+                            <ul class="tech-stack">
+                                {% for tech in project.technologies %}
+                                    <li>{{ tech.name }}</li>
+                                {% endfor %}
+                            </ul>
+
+                            <h3>Timeline</h3>
+                            <p>{{ project.timeline }}</p>
+
+                            <h3>Role</h3>
+                            <p>{{ project.role }}</p>
+
+                            <div class="project-links">
+                                {% if project.live_url %}
+                                    <a href="{{ project.live_url }}" class="primary-button">View Live Site</a>
+                                {% endif %}
+                                {% if project.source_url %}
+                                    <a href="{{ project.source_url }}" class="secondary-button">View Source</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock content %}

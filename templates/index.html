@@ -1,0 +1,187 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block headers %}
+    <title>Mian Zain - Portfolio</title>
+    <link rel="stylesheet" href="{% static "css/styles.css" %}">
+    <script src="{% static "js/script.js" %}" defer></script>
+{% endblock headers %}
+ 
+{% block content %}
+    <section class="hero">
+        <div class="emoji-background"></div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="hero-logo">
+                    <div class="hero-logo-robot hero-robot">
+                        <div class="antenna-left"></div>
+                        <div class="antenna-right"></div>
+                        <div class="hand-left"></div>
+                        <div class="hand-right"></div>
+                    </div>
+                </div>
+                <h1 class="hero-name">Mian Zain</h1>
+                <div class="hero-divider"></div>
+                <p class="hero-subtitle">Creating digital experiences that matter</p>
+                <p class="hero-description">Full-stack developer specializing in building exceptional digital experiences</p>
+                <a href="#contact" class="cta-button">Hire Me →</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <h2>About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>I’m Mian Zain, a passionate developer with a focus on <a href="https://www.google.com/search?q=web+development" target="_blank" class="highlight">web development</a> and <a href="https://www.google.com/search?q=artificial+intelligence" target="_blank" class="highlight">artificial intelligence</a>. My toolkit includes modern web technologies like React.js, Vue.js, Django, Flask, RESTful APIs, and Tailwind—allowing me to create applications that are both visually appealing and lightning-fast.</p>
+                    <p>Beyond web development, I’m deeply fascinated by the potential of <a href="https://www.google.com/search?q=neural+networks" target="_blank" class="highlight">neural networks</a>. Exploring AI in greater depth continues to fuel my curiosity and drive new projects. I love being part of innovative communities that strive to make a positive impact, and I firmly believe in the power of young entrepreneurs to shape our collective future.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2>Technologies I Work With</h2>
+            <div class="skills-grid">
+                <div class="skill-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" class="skill-icon">
+                    <span class="skill-name">React</span>
+                    <span class="skill-description">Frontend Development</span>
+                </div>
+                <div class="skill-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg" alt="Vue.js" class="skill-icon">
+                    <span class="skill-name">Vue.js</span>
+                    <span class="skill-description">Progressive Framework</span>
+                </div>
+                <div class="skill-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" alt="Django" class="skill-icon">
+                    <span class="skill-name">Django</span>
+                    <span class="skill-description">Python Web Framework</span>
+                </div>
+                <div class="skill-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg" alt="Flask" class="skill-icon">
+                    <span class="skill-name">Flask</span>
+                    <span class="skill-description">Lightweight Backend</span>
+                </div>
+                <div class="skill-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js" class="skill-icon">
+                    <span class="skill-name">Node.js</span>
+                    <span class="skill-description">JavaScript Runtime</span>
+                </div>
+                <div class="skill-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL" class="skill-icon">
+                    <span class="skill-name">PostgreSQL</span>
+                    <span class="skill-description">SQL Database</span>
+                </div>
+                <div class="skill-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB" class="skill-icon">
+                    <span class="skill-name">MongoDB</span>
+                    <span class="skill-description">NoSQL Database</span>
+                </div>
+                <div class="skill-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker" class="skill-icon">
+                    <span class="skill-name">Docker</span>
+                    <span class="skill-description">Containerization</span>
+                </div>
+                <div class="skill-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" class="skill-icon">
+                    <span class="skill-name">Git</span>
+                    <span class="skill-description">Version Control</span>
+                </div>
+                <div class="skill-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nginx/nginx-original.svg" alt="Nginx" class="skill-icon">
+                    <span class="skill-name">Nginx</span>
+                    <span class="skill-description">Web Server</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% if featured_projects %}
+        <section id="projects" class="projects">
+            <div class="container">
+                <h2>Featured Projects</h2>
+                <div class="project-grid">
+                    {% for project in featured_projects %}
+                        <article class="project-card">
+                            <div class="project-media">
+                                <img src="{{ project.featured_image.url }}" 
+                                    alt="{{ project.title }}"
+                                    loading="lazy"
+                                    decoding="async">
+                            </div>
+                            <div class="project-content">
+                                <span class="project-tag">{{ project.tag }}</span>
+                                <h3 class="project-title">{{ project.title }}</h3>
+                                <p class="project-description">{{ project.short_description }}</p>
+                                {% if project.live_url %}
+                                <a href="{{ project.live_url }}" class="project-link">
+                                    View Project
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                    </svg>
+                                </a>
+                                {% endif %}
+                            </div>
+                        </article>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    {% endif %} 
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Get in Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <p>Ready to start a project? Let's talk about your ideas.</p>
+                </div>
+                <form class="contact-form" action="{% url 'contact-submit' %}" method="post" id="contactForm">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" id="name" name="name" placeholder="Your name" required>
+                        <span class="error-message" id="nameError"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" placeholder="Your email" required>
+                        <span class="error-message" id="emailError"></span>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" name="message" placeholder="Your message" rows="5" required></textarea>
+                        <span class="error-message" id="messageError"></span>
+                    </div>
+                    <div style="display: none;">
+                        <input type="text" name="honeypot" id="honeypot" value="" autocomplete="off" tabindex="-1">
+                    </div>
+                    <button type="submit" class="submit-button" id="submitBtn">
+                        <span class="button-text">Send Message</span>
+                        <div class="spinner" style="display: none;">
+                            <div class="bounce1"></div>
+                            <div class="bounce2"></div>
+                            <div class="bounce3"></div>
+                        </div>
+                        <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path fill="currentColor" d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z"/>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+    <div class="notification" id="notification">
+        <div class="notification-content">
+            <div class="notification-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4.59-12.42L10 14.17l-2.59-2.58L6 13l4 4 8-8z"/>
+                </svg>
+            </div>
+            <span class="notification-message"></span>
+        </div>
+    </div>
+{% endblock content %}
+
+
+
+

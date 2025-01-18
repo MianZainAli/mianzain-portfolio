@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load static %}
+
+  
+{% block headers %}
+    <title>Projects - Mian Zain</title>
+    <link rel="stylesheet" href="{% static 'css/projects.css' %}">
+    <script src="{% static 'js/projects.js' %}" defer></script>
+{% endblock headers %}
+
+{% block content %}
+
+    <header class="projects-header">
+        <div class="container">
+            <h1>Projects</h1>
+            <p>Explore my latest works and experiments</p>
+            <div class="project-filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                {% for category in categories %}
+                    <button class="filter-btn" data-filter="{{ category.slug }}">{{ category.name }}</button>
+                {% endfor %}
+            </div>
+        </div>
+    </header>
+
+    <section class="projects-grid-section">
+        <div class="container">
+            <div class="projects-grid">
+                {% if projects %}
+                    {% for project in projects %}
+                        <article class="project-card" data-category="{{ project.category|default:'uncategorized' }}">
+                            <div class="project-media">
+                                {% if project.featured_image %}
+                                    <img src="{{ project.featured_image.url }}" 
+                                         alt="{{ project.title }}" 
+                                         loading="lazy" 
+                                         decoding="async"
+                                         onerror="this.src='{% static 'images/placeholder.jpg' %}'">
+                                {% else %}
+                                    <img src="{% static 'images/placeholder.jpg' %}" 
+                                         alt="Project image placeholder" 
+                                         loading="lazy" 
+                                         decoding="async">
+                                {% endif %}
+                            </div>
+                            <div class="project-content">
+                                <span class="project-tag">{{ project.tag|default:'Uncategorized' }}</span>
+                                <h3 class="project-title">{{ project.title|default:'Untitled Project' }}</h3>
+                                <p class="project-description">{{ project.short_description|default:'No description available' }}</p>
+                                {% if project.slug %}
+                                    <a href="{% url 'project-details' project.slug %}" class="project-link">
+                                        Explore Project
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                        </svg>
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </article>
+                    {% endfor %}
+                {% else %}
+                    <div class="no-projects-message">
+                        <p>No projects available at the moment.</p>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="loading-spinner" style="display: none;">
+                <div class="spinner"></div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
