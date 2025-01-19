@@ -29,6 +29,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['mianzain.tech', 'www.mianzain.tech','mianzain-portfolio-8813d6fe7f07.herokuapp.com']
 
+CSRF_TRUSTED_ORIGINS = ['https://mianzain.tech', 'https://www.mianzain.tech','mianzain-portfolio-8813d6fe7f07.herokuapp.com']
 
 
 # Application definition
