@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 
 from portfolio import settings
-from .models import Project, Contact
+from .models import Project, Contact, Skill
 from django.views.decorators.http import require_http_methods
 from django.http import JsonResponse
 from django.core.exceptions import ValidationError
@@ -10,8 +10,9 @@ from django.utils import timezone
 import json
 
 def Index(request):
+    skills = Skill.objects.all().order_by('order')
     featured_projects = Project.objects.filter(is_featured=True)
-    return render(request, 'index.html', {'featured_projects': featured_projects})
+    return render(request, 'index.html', {'featured_projects': featured_projects, 'skills': skills})
 
 def Projects(request):
     projects = Project.objects.all()
