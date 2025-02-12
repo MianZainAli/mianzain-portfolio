@@ -1,6 +1,5 @@
 from django.shortcuts import render, get_object_or_404
 
-from portfolio import settings
 from .models import Project, Contact, Skill
 from django.views.decorators.http import require_http_methods
 from django.http import JsonResponse

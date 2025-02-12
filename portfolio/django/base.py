@@ -12,27 +12,21 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 import os
 import django_heroku
-from pathlib import Path
+from portfolio.env import env, BASE_DIR
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+env.read_env(os.path.join(BASE_DIR, '.env'))
 
+SECRET_KEY = env('SECRET_KEY')
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
+DEBUG = env.bool('DEBUG', default=True)
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY', 'fallback-key-for-dev')
+ALLOWED_HOSTS = ['*']
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['mianzain.tech', 'www.mianzain.tech','mianzain-portfolio-8813d6fe7f07.herokuapp.com']
-
-CSRF_TRUSTED_ORIGINS = ['https://mianzain.tech', 'https://www.mianzain.tech','mianzain-portfolio-8813d6fe7f07.herokuapp.com']
-
-
-# Application definition
+# Update CSRF trusted origins with proper schemes
+CSRF_TRUSTED_ORIGINS = [
+    'http://*',
+    'https://*'
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -106,9 +100,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/5.1/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -117,9 +108,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
@@ -149,5 +137,3 @@ CKEDITOR_CONFIGS = {
         ]
     }
 }
-
-django_heroku.settings(locals())
