@@ -1,0 +1,19 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('My Site Admin') }}{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">
+    <a href="{% url 'admin:index' %}">So Long, and Thanks for All the Passwords🛸</a>
+    </a>
+</h1>
+{% endblock %}
+
+{% block extrastyle %}
+<style>
+    #branding h1 a {
+        color: #fff;
+    }
+</style>
+{% endblock %}

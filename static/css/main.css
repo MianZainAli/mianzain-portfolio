@@ -188,7 +188,8 @@ body {
     letter-spacing: 0.02em;}
 .footer-logo {    
     display: flex;    
-    align-items: center;    
+    align-items: center; 
+    justify-content: center;   
     gap: 10px;    
     margin-bottom: 16px;}
 .footer-robot {   

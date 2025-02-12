@@ -50,3 +50,9 @@ class ContactAdmin(admin.ModelAdmin):
             'classes': ('collapse',)
         })
     )
+    
+from django.contrib import admin
+
+admin.site.site_header = 'Portfolio Administration'  
+admin.site.site_title = 'Zain portfolio'     
+admin.site.index_title = 'Welcome Zain'
