@@ -221,7 +221,8 @@ body {
 .footer-links a:hover {    
     color: #f5f5f7;}
 .social-icons {    
-    display: flex;    
+    display: flex; 
+    justify-content: center;   
     gap: 16px;}
 .social-icon {    
     width: 36px;    
