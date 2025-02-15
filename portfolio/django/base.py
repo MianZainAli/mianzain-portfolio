@@ -20,8 +20,9 @@ SECRET_KEY = env('SECRET_KEY')
 
 DEBUG = env.bool('DEBUG', default=True)
 
-ALLOWED_HOSTS = env('ALLOWED_HOSTS', default=['*'])
+ALLOWED_HOSTS = ['*']
 
+# Update CSRF trusted origins with proper schemes
 CSRF_TRUSTED_ORIGINS = [
     'http://*',
     'https://*'
@@ -66,7 +67,6 @@ TEMPLATES = [
         },
     },
 ]
-
 
 WSGI_APPLICATION = 'portfolio.wsgi.application'
 
@@ -114,3 +114,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Add CKEditor configuration
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Custom',
+        'height': 300,
+        'toolbar_Custom': [
+            ['Bold', 'Italic', 'Underline'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent'],
+            ['Link', 'Unlink'],
+            ['RemoveFormat', 'Source']
+        ]
+    }
+}
