@@ -103,7 +103,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const spinner = submitBtn.querySelector('.spinner');
     
     function setSubmitting(isSubmitting) {
-        const submitBtn = document.getElementById('submitBtn');
         if (isSubmitting) {
             submitBtn.classList.add('loading');
         } else {
@@ -133,16 +132,22 @@ document.addEventListener('DOMContentLoaded', () => {
     function showNotification(message, type = 'default') {
         const notification = document.getElementById('notification');
         const messageElement = notification.querySelector('.notification-message');
-        
-        // Clear existing classes
+        const succesIcon = notification.querySelector('.success-icon');
+        const errorIcon = notification.querySelector('.error-icon');
+
+        succesIcon.style.display = 'none';
+        errorIcon.style.display = 'none';
+
         notification.className = 'notification';
         
-        // Add new classes
-        notification.classList.add('show');
-        if (type === 'success' || type === 'error') {
-            notification.classList.add(type);
+        if (type === 'success') {
+            succesIcon.style.display = 'block';
+            notification.className = 'notification success show';
+        } else if (type === 'error') {
+            errorIcon.style.display = 'block';
+            notification.className = 'notification error show';
         }
-        
+
         messageElement.textContent = message;
         
         // Hide notification after 5 seconds
@@ -172,7 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 const data = await response.json();
-
+                console.log(data);
                 if (data.status === 'success') {
                     contactForm.reset();
                     showNotification(data.message, 'success');
@@ -186,7 +191,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }
             } catch (error) {
-                console.error('Error:', error);
                 showNotification('An error occurred. Please try again.', 'error');
             } finally {
                 setSubmitting(false);

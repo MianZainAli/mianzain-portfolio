@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block headers %}
+    <title>404 - Page Not Found</title>
+    <link rel="stylesheet" href="{% static 'css/404.css' %}">
+{% endblock headers %}
+
+{% block content %}
+<div class="error-container">
+    <div class="error-content">
+        <div class="error-robot">
+            <div class="robot">
+                <div class="antenna-left"></div>
+                <div class="antenna-right"></div>
+                <div class="eyes">
+                    <div class="eye-left">4</div>
+                    <div class="eye-right">4</div>
+                </div>
+                <div class="mouth">0</div>
+            </div>
+        </div>
+        <h1>Page Not Found</h1>
+        <p>The page you're looking for can't be found.</p>
+        <a href="{% url 'index' %}" class="back-button">
+            Return Home
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z"/>
+            </svg>
+        </a>
+    </div>
+</div>
+{% endblock content %}

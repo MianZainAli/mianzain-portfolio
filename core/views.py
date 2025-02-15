@@ -1,12 +1,12 @@
 from django.shortcuts import render, get_object_or_404
 
+from core.forms import ContactForm
+
 from .models import Project, Contact, Skill
 from django.views.decorators.http import require_http_methods
 from django.http import JsonResponse
 from django.core.exceptions import ValidationError
 from django.views.decorators.csrf import csrf_protect
-from django.utils import timezone
-import json
 
 def Index(request):
     skills = Skill.objects.all().order_by('order')
@@ -26,45 +26,27 @@ def ProjectDetail(request, slug):
 @require_http_methods(["POST"])
 def contact_submit(request):
     try:
-        # Clean and validate input data
-        name = request.POST.get('name', '').strip()
-        email = request.POST.get('email', '').strip()
-        message = request.POST.get('message', '').strip()
-        honeypot = request.POST.get('honeypot', '').strip()
-
-        errors = {}
-        
-        # Basic validation
-        if len(name) < 2:
-            errors['name'] = ['Name must be at least 2 characters long']
-        if '@' not in email:
-            errors['email'] = ['Please enter a valid email address']
-        if len(message) < 10:
-            errors['message'] = ['Message must be at least 10 characters long']
-
-        if errors:
-            return JsonResponse({'status': 'error', 'errors': errors}, status=400)
-
-        # Honeypot check
-        if honeypot:
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            honeypot = request.POST.get('honeypot', '').strip()
+            if honeypot:
+                return JsonResponse({
+                    'status': 'error',
+                    'message': 'Message sent successfully!'
+                })
+            
+            contact = form.save(commit=False)
+            contact.ip_address = request.META.get('REMOTE_ADDR', '')
+            contact.save()
             return JsonResponse({
                 'status': 'success',
                 'message': 'Message sent successfully!'
             })
-
-        # Create contact entry
-        contact = Contact.objects.create(
-            name=name,
-            email=email,
-            message=message,
-            ip_address=request.META.get('REMOTE_ADDR', ''),
-            date_sent=timezone.now()
-        )
-
-        return JsonResponse({
-            'status': 'success',
-            'message': 'Message sent successfully!'
-        })
+        else:
+            return JsonResponse({
+                'status': 'error',
+                'errors': form.errors
+            }, status=400)       
 
     except Exception as e:
         return JsonResponse({

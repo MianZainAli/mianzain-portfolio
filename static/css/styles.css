@@ -48,10 +48,11 @@
 
 .floating-emoji {
     position: absolute;
-    font-size: 40px; /* Increased from 24px */
+    font-size: 20px; 
     opacity: 0;
-    animation: floatUp 12s ease-out forwards; /* Increased from 8s */
+    animation: floatUp 20s cubic-bezier(0.4, 0, 0.2, 1) forwards;
     will-change: transform, opacity;
+    transform-origin: center;
 }
 
 .hero {
@@ -63,122 +64,30 @@
     overflow: hidden; /* Add this to contain the emojis */
 }
 
-.hero-content {
-    width: 100%;
-    max-width: 1200px;
-    padding: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+
+.hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 150px;
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 1) 100%
+    );
+    pointer-events: none;
     z-index: 1;
 }
 
-.hero-text {
-    text-align: center;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.hero-content {
-    position: relative;
-    z-index: 2;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    padding: 120px 22px;
-}
-
 .hero-logo {
-    width: 180px;
-    height: 180px;
-    margin: 0 auto 32px;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.hero-name {
-    font-size: 56px;
-    line-height: 1.07143;
-    font-weight: 600;
-    letter-spacing: -0.005em;
-    margin-bottom: 8px;
-    color: #1d1d1f;
-}
-
-.hero-divider {
-    width: 40px;
-    height: 3px;
-    background: #06c;
-    margin: 24px auto;
-    border-radius: 1.5px;
-}
-
-.hero-subtitle {
-    font-size: 28px;
-    line-height: 1.10722;
-    font-weight: 400;
-    letter-spacing: .004em;
-    margin-bottom: 18px;
-    color: #1d1d1f;
-}
-
-.hero-description {
-    font-size: 17px;
-    line-height: 1.47059;
-    font-weight: 400;
-    letter-spacing: -.022em;
-    margin-bottom: 32px;
-    color: #86868b;
-}
-
-.cta-button {
-    display: inline-flex;
-    align-items: center;
-    padding: 12px 32px;
-    background: #0071e3;
-    color: white;
-    text-decoration: none;
-    border-radius: 980px;
-    font-size: 17px;
-    line-height: 1.17648;
-    font-weight: 400;
-    letter-spacing: -.022em;
-    transition: all 0.2s ease;
-    min-width: 160px;
-    justify-content: center;
-}
-
-.cta-button:hover {
-    background: #0077ED;
-    transform: translateY(-1px);
-}
-
-@media (max-width: 734px) {
-    .hero-content {
-        padding: 80px 22px;
-    }
-
-    .hero-logo {
-        width: 140px;
-        height: 140px;
-        margin-bottom: 24px;
-    }
-
-    .hero-name {
-        font-size: 40px;
-        line-height: 1.1;
-    }
-
-    .hero-subtitle {
-        font-size: 24px;
-        line-height: 1.16667;
-    }
-
-    .hero-description {
-        font-size: 16px;
-        line-height: 1.42859;
-    }
 }
 
 .hero-content {
@@ -208,12 +117,29 @@
     margin-bottom: 20px;
 }
 
+.hero-divider {
+    width: 40px;
+    height: 3px;
+    background: #06c;
+    margin: 24px auto;
+    border-radius: 1.5px;
+}
+
 .hero-subtitle {
     font-size: 24px;
     line-height: 1.5;
     color: #86868b;
     margin-bottom: 40px;
     font-weight: 400;
+}
+
+.hero-description {
+    font-size: 17px;
+    line-height: 1.47059;
+    font-weight: 400;
+    letter-spacing: -.022em;
+    margin-bottom: 32px;
+    color: #86868b;
 }
 
 .cta-button {
@@ -234,20 +160,32 @@
     transform: translateY(-1px);
 }
 
-.hero::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 150px;
-    background: linear-gradient(
-        to bottom,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 1) 100%
-    );
-    pointer-events: none;
-    z-index: 1;
+
+@media (max-width: 734px) {
+    .hero-content {
+        padding: 80px 22px;
+    }
+
+    .hero-logo {
+        width: 140px;
+        height: 140px;
+        margin-bottom: 24px;
+    }
+
+    .hero-name {
+        font-size: 40px;
+        line-height: 1.1;
+    }
+
+    .hero-subtitle {
+        font-size: 24px;
+        line-height: 1.16667;
+    }
+
+    .hero-description {
+        font-size: 16px;
+        line-height: 1.42859;
+    }
 }
 
 section {
@@ -261,13 +199,6 @@ section h2 {
     color: #1d1d1f;
 }
 
-
-
-.hero-logo {
-    width: 120px;
-    height: 120px;
-    margin: 0 auto 2rem;
-}
 
 .hero-robot {
     width: 100%;
@@ -283,6 +214,7 @@ section h2 {
         0 20px 44px rgba(0, 0, 0, 0.15),
         0 30px 60px rgba(0, 102, 204, 0.2),
         0 40px 80px -20px rgba(0, 102, 204, 0.15);
+
 }
 
 .hero-robot::before,
@@ -311,9 +243,6 @@ section h2 {
     left: 40px;  
 }
 
-.hero-robot {
-    position: relative;
-}
 
 .hero-robot .hand-left,
 .hero-robot .hand-right {
@@ -419,25 +348,9 @@ section h2 {
     95% { transform: scaleY(0.1); }
 }
 
-.hero-robot {
-    overflow: visible;
-}
-
 .hero-robot::before {
     box-shadow: 
         40px 0 0 white;
-}
-
-.hero-robot .hand-left,
-.hero-robot .hand-right {
-    width: 24px;
-    height: 24px;
-    background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
-    border-radius: 50%;
-    top: 45%;
-    opacity: 0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .hero-robot .hand-left {
@@ -461,17 +374,6 @@ section h2 {
     }
 }
 
-.hero-robot .antenna-left,
-.hero-robot .antenna-right {
-    content: '';
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
-    border-radius: 50%;
-    top: -20px;
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
 
 .hero-robot .antenna-left {
     left: 28px;
@@ -521,6 +423,8 @@ section h2 {
 
 .hero-robot .antenna-left,
 .hero-robot .antenna-right {
+    content: '';
+    position: absolute;
     width: 8px;
     height: 8px;
     background: radial-gradient(
@@ -946,14 +850,7 @@ section h2 {
 }
 
 
-.floating-emoji {
-    position: absolute;
-    font-size: 20px; 
-    opacity: 0;
-    animation: floatUp 20s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-    will-change: transform, opacity;
-    transform-origin: center;
-}
+
 
 @keyframes floatUp {
     0% {
@@ -1010,6 +907,11 @@ section h2 {
     width: 90%;
     max-width: 300px;
     pointer-events: none;
+}
+
+.error-icon {
+    color: #FF453A;
+
 }
 
 .notification.show {

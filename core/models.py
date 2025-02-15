@@ -90,17 +90,9 @@ class Skill(models.Model):
 
 
 class Contact(models.Model):
-    name = models.CharField(
-        max_length=100,
-        validators=[MinLengthValidator(2)]
-    )
-    email = models.EmailField(
-        validators=[EmailValidator()]
-    )
-    message = models.TextField(
-        max_length=5000,  # Limit message length
-        validators=[MinLengthValidator(10)]
-    )
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    message = models.TextField()
     ip_address = models.GenericIPAddressField()
     date_sent = models.DateTimeField(auto_now_add=True)
     
@@ -111,7 +103,6 @@ class Contact(models.Model):
     def clean(self):
         super().clean()
         
-        # Check for rate limiting
         recent_messages = Contact.objects.filter(
             ip_address=self.ip_address,
             date_sent__gte=timezone.now() - timezone.timedelta(hours=24)
