@@ -11,11 +11,10 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 import os
-import django_heroku
 import environ
+import django_heroku
 from pathlib import Path
 import dj_database_url
-
 
 env = environ.Env()
 
@@ -163,5 +162,8 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
 MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 django_heroku.settings(locals(), staticfiles=False)
