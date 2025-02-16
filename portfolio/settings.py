@@ -144,6 +144,10 @@ CKEDITOR_CONFIGS = {
     }
 }
 
+if DEBUG:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+else:
+    STATIC_ROOT = None
 
 # AWS settings (as you already have)
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
@@ -154,16 +158,10 @@ AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
 
 AWS_DEFAULT_ACL = None  
 AWS_S3_FILE_OVERWRITE = False
-AWS_STATIC_LOCATION = 'static'
-AWS_MEDIA_LOCATION = 'media'
 
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
-MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
 
 django_heroku.settings(locals(), staticfiles=False)
