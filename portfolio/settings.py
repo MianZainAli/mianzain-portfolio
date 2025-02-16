@@ -18,7 +18,7 @@ import dj_database_url
 
 env = environ.Env()
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 env.read_env(os.path.join(BASE_DIR, '.env'))
 
@@ -144,10 +144,7 @@ CKEDITOR_CONFIGS = {
     }
 }
 
-if DEBUG:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-else:
-    STATIC_ROOT = None
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # AWS settings (as you already have)
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
