@@ -147,7 +147,6 @@ CKEDITOR_CONFIGS = {
 
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
@@ -159,6 +158,10 @@ AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
 AWS_S3_REGION_NAME = os.environ.get('AWS_S3_REGION_NAME', default='us-east-1')
+
+print("AWS_ACCESS_KEY_ID:", AWS_ACCESS_KEY_ID)
+print("AWS_SECRET_ACCESS_KEY:", AWS_SECRET_ACCESS_KEY)
+print("AWS_STORAGE_BUCKET_NAME:", AWS_STORAGE_BUCKET_NAME)
 
 # Only use S3 if AWS credentials are defined
 if AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY and AWS_STORAGE_BUCKET_NAME:
