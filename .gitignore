@@ -3,7 +3,6 @@ __pycache__/
 db.sqlite3
 .env
 .venv
-staticfiles/
 env/
 .idea/
 .vscode/
