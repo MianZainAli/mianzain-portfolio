@@ -1,14 +1,25 @@
 from .settings import *
 
+import dj_database_url
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 DEBUG = False
+
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS',default=[''])
+CSRF_TRUSTED_ORIGINS = [
+    f'http://{host}' for host in ALLOWED_HOSTS if host
+] + [
+    f'https://{host}' for host in ALLOWED_HOSTS if host
+]
 
 INSTALLED_APPS += ['storages']
 
+DATABASES = {
+    'default': dj_database_url.config()
+}
 
-# AWS and S3 Settings
-AWS_S3_ADDRESSING_STYLE = 'virtual'
-AWS_IS_GZIPPED = True
-AWS_S3_SECURE_URLS = True
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
@@ -21,13 +32,11 @@ AWS_S3_OBJECT_PARAMETERS = {
 AWS_DEFAULT_ACL = None
 AWS_S3_FILE_OVERWRITE = False
 
-# Static and Media files configuration for S3
-STATICFILES_STORAGE = 'portfolio.custom_storage.StaticStorage'
-DEFAULT_FILE_STORAGE = 'portfolio.custom_storage.MediaStorage'
+AWS_STATIC_LOCATION = 'static'
+AWS_MEDIA_LOCATION = 'media'
 
-# This will be used when DEBUG is False
-STATIC_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/static/' if not DEBUG else '/static/'
-MEDIA_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/media/'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # Disable django-heroku's static files handling
 django_heroku.settings(locals(), staticfiles=False)

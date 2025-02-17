@@ -2,7 +2,6 @@ import os
 import environ
 import django_heroku
 from pathlib import Path
-import dj_database_url
 
 env = environ.Env()
 
@@ -12,15 +11,11 @@ env.read_env(os.path.join(BASE_DIR, '.env'))
 
 SECRET_KEY = env('SECRET_KEY')
 
-DEBUG = env.bool('DEBUG', default=False)
+DEBUG = env.bool('DEBUG', default=True)
 
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[])
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['*'])
 
-CSRF_TRUSTED_ORIGINS = [
-    f'http://{host}' for host in ALLOWED_HOSTS if host
-] + [
-    f'https://{host}' for host in ALLOWED_HOSTS if host
-]
+CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS', default=['*'])
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -68,21 +63,13 @@ WSGI_APPLICATION = 'portfolio.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-if 'DATABASE_URL' in os.environ:
-    DATABASES = {
-        'default': dj_database_url.config(
-            default=env('DATABASE_URL'),
-            conn_max_age=600,
-            ssl_require=True
-        )
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
+}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
