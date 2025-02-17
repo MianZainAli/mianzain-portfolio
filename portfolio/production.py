@@ -1,9 +1,9 @@
 from .settings import *
 
-django_heroku.settings(locals(), staticfiles=False)
 import dj_database_url
 import django_heroku
 
+django_heroku.settings(locals(), staticfiles=False)
 DEBUG = False
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS',default=[''])
