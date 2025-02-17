@@ -164,18 +164,12 @@ STATICFILES_STORAGE = 'portfolio.custom_storage.StaticStorage'
 DEFAULT_FILE_STORAGE = 'portfolio.custom_storage.MediaStorage'
 
 # Required even with S3: Django needs this for the collection process
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 AWS_LOCATION = 'static'
 STATIC_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/static/'
 
 # Media files
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/media/'
-
-# Source directories for static files
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
 
 # Disable django-heroku's static files handling
 django_heroku.settings(locals(), staticfiles=False)
