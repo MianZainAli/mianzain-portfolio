@@ -3,7 +3,6 @@ from .settings import *
 import dj_database_url
 import django_heroku
 
-django_heroku.settings(locals(), staticfiles=False)
 DEBUG = False
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS',default=[''])
@@ -40,3 +39,4 @@ STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 STATIC_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/static/'
 MEDIA_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/media/'
+django_heroku.settings(locals(), staticfiles=False)
