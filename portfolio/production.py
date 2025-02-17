@@ -1,5 +1,6 @@
 from .settings import *
 
+django_heroku.settings(locals(), staticfiles=False)
 import dj_database_url
 import django_heroku
 
@@ -38,4 +39,3 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # Disable django-heroku's static files handling
-django_heroku.settings(locals(), staticfiles=False)
