@@ -5,6 +5,12 @@ The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.1/topics/http/urls/
 Examples:
 Function views
+GitHub Copilot
+Even when using S3 for storage, Django still needs STATIC_ROOT defined for the collection process. Let's update your settings to handle both S3 and the collection process correctly:
+
+Then run these commands in your terminal:
+
+
     1. Add an import:  from my_app import views
     2. Add a URL to urlpatterns:  path('', views.home, name='home')
 Class-based views
