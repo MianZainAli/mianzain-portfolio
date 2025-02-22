@@ -1,4 +1,19 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const nav = document.querySelector('.nav');
+    const scrollThreshold = 50;
+
+    function handleScroll() {
+        if (window.scrollY > scrollThreshold) {
+            nav.classList.add('scrolled');
+        } else {
+            nav.classList.remove('scrolled');
+        }
+    }
+
+    window.addEventListener('scroll', handleScroll);
+    
+
+
     const projectCards = document.querySelectorAll('.project-card');
     const filterContainer = document.querySelector('.project-filters');
 

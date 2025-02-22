@@ -173,12 +173,11 @@
 .project-card:hover .project-content {
     transform: translateY(0);
     background: linear-gradient(
-        to top,
-        rgba(0, 0, 0, 0.95) 0%,
-        rgba(0, 0, 0, 0.8) 60%,
-        rgba(0, 0, 0, 0.4) 80%,
-        rgba(0, 0, 0, 0.1) 100%
-    );
+        to top, 
+        rgba(0, 0, 0, 0.7) 0%,
+        rgba(0, 0, 0, 0.4) 50%, 
+        rgba(0, 0, 0, 0.1) 90%,
+        rgba(0, 0, 0, 0.0) 200%)
 }
 
 .project-card:hover .project-tag,
